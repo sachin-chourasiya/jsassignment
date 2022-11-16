@@ -1,31 +1,25 @@
-
 function updatekey(){
-    var answer = document.getElementById('skuId').value;
-    var p = document.getElementById('p');
-    const words = answer.split('=');
-    let num = parseInt(words[1]);
-    console.log(num);
-    
-    let url = 'data.json';
-    fetch(url).then((response)=>{
+    let skuId = document.getElementById('skuId').value;
+    let p = document.getElementById('p');
+    let divideInput = skuId.split('=');
+    let skuKey = parseInt(divideInput[1]);
+    let jsonUrl = 'data.json';
+    fetch(jsonUrl).then((response)=>{
       return response.json();
-    }).then((data)=>{
+    }).then((cellData)=>{
       let flag = false;
-      for(let i=0;i<data.length;i++){
-        if(data[i].sku === num){
+      for(let i=0;i<cellData.length;i++){
+        if(cellData[i].sku === skuKey){
           flag = true
-          data[i].sku = Math.floor(Math.random()*100);
-          console.log(data[i]);
-          p.innerHTML = JSON.stringify(data[i]);
-          alert('successfully complete')
+          cellData[i].sku = Math.floor(Math.random()*100);
+          console.log(cellData[i]);
+          p.innerHTML = JSON.stringify(cellData[i]);
+          alert('Successfully complete');
           break;
         }
-        
       }
       if(flag == false){
         alert('SKU not found');
       }
     })
-   
-  
 }
